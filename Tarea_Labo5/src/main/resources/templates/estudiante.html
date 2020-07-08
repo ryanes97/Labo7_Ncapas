@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8">
+    <title>Mostrar estudiante por llave primaria</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+  </head>
+  <body>
+      <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-md-6">
+          <div class="card text-center mt-2 p-2">
+           <legend class="text-left">
+             Estudiante por Id: 
+            <span th:text="${estudiante.codigoEstudiante}"></span>
+             <a class="btn btn-info float-right" th:href="@{/estudiante}">Regresar</a>
+           </legend>
+
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th scope="col">Nombre</th>
+                  <th scope="col">Apellido</th>
+                  <th scope="col">Edad</th>
+                  <th scope="col">Estado</th>
+                </tr>
+              </thead>
+              <tbody>
+                 <tr>
+                   <td th:text="${estudiante.nombre}"/>
+                   <td th:text="${estudiante.apellido}"/>
+                   <td th:text="${estudiante.edad}"/>
+                   <td th:text="${estudiante.estadoDelegate}"/>
+                 </tr>
+              </tbody>
+            </table>  
+            
+            <legend class="text-left">
+             Computadoras del estudiante
+           </legend>
+           
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th scope="col">Id</th>
+                  <th scope="col">Marca</th>
+                </tr>
+              </thead>
+              <tbody>
+					      <th:block th:each="comp, row: ${estudiante.computadoras}">
+					       <tr>
+					         <td th:text="${comp.codigoComputadora}"/>
+					         <td th:text="${comp.marca}"/>
+					       </tr>
+					      </th:block>
+              </tbody>
+            </table>  
+          </div>
+        </div>
+      </div>
+    </div>  
+  <script src="js/jquery.min.js"></script>
+  <script src="js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>

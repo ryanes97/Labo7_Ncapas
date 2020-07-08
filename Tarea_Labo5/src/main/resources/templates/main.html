@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8">
+    <title>Lista de estudiantes</title>
+      <link href="css/bootstrap.min.css" rel="stylesheet">
+  </head>
+  <body>
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-md-6">
+          <div class="card text-center mt-2 p-2">
+           <legend class="text-left">
+             Lista de estudiantes
+             <a class="btn btn-info float-right" th:href="@{/insertarEstudiante}">Nuevo estudiante</a>
+             <a class="btn btn-info float-right mr-2" th:href="@{/mostrarDTO}">DTO</a>
+           </legend>
+
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th scope="col">Código</th>
+                  <th scope="col">Nombre</th>
+                  <th scope="col">Apellido</th>
+                  <th scope="col">Edad</th>
+                  <th scope="col">Estado</th>
+                </tr>
+              </thead>
+              <tbody>
+                <th:block th:each="estudiante, row: ${estudiantes}">
+                  <tr>
+                    <td th:text="${estudiante.codigoEstudiante}"/>
+                    <td th:text="${estudiante.nombre}"/>
+                    <td th:text="${estudiante.apellido}"/>
+                    <td th:text="${estudiante.edad}"/>
+                    <td th:text="${estudiante.estadoDelegate}"/>
+                  </tr>
+               </th:block>
+              </tbody>
+            </table>
+            
+            <legend class="text-left">
+             Filtrar
+           </legend>
+            
+            <form th:action="@{/Filtrar}" method="post">
+              <div class="form-group row">
+                <label for="codigo" class="col-sm-2 col-form-label">Filtrar:</label>
+                <div class="col-sm-8">
+                  <input type="text" required class="form-control" id="nombre" name="nombre">
+                </div>
+                <div class="col-sm-2">
+                  <button type="submit" class="btn btn-info float-right">Filtrar</button>
+                </div>
+              </div>
+            </form>
+            
+            <legend class="text-left">
+             Buscar por codigo de estudiante
+           </legend>
+            
+            <form th:action="@{/mostrarEstudiante}" method="post">
+              <div class="form-group row">
+                <label for="codigo" class="col-sm-2 col-form-label">Codigo</label>
+                <div class="col-sm-4">
+                  <input type="number" required class="form-control" id="codigo" name="codigo">
+                </div>
+                <div class="col-sm-2">
+                  <button type="submit" name="action" value="buscar" class="btn btn-primary float-right">Buscar</button>
+                </div>
+                <div class="col-sm-2">
+                  <button type="submit" name="action" value="editar" class="btn btn-success float-right">Editar</button>
+                </div>
+                <div class="col-sm-2">
+                  <button type="submit" name="action" value="borrar" class="btn btn-danger float-right">Borrar</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>  
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>

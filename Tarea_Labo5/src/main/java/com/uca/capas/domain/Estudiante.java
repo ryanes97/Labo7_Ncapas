@@ -1,52 +1,60 @@
 package com.uca.capas.domain;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Entity
 @Table(schema="public", name="estudiante")
 public class Estudiante {
-	
+
 	@Id
-	@Column(name="c_usuario")
+	@Column(name="id_estudiante")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer codigo;
+	private Integer codigoEstudiante;
+	
 	
 	@Column(name="nombre")
-	@NotEmpty(message="No puede estar vacio")
+	@Size(message="El campo no debe contener mas de 30 caracteres", max=30)
+	@NotEmpty(message="Este campo no puede estar vacio")
 	private String nombre;
 	
 	@Column(name="apellido")
-	@NotEmpty(message="No puede estar vacio")
+	@Size(message="El campo no debe contener mas de 30 caracteres", max=30)
+	@NotEmpty(message="Este campo no puede estar vacio")
 	private String apellido;
 	
-	@Column(name="carne")
-	@NotEmpty(message="No puede estar vacio")
-	@Size(min=8, max=8, message="El carne debe tener exactamente 8 digitos")
-	private String carne;
+	@Column(name="edad")
+	@NotNull(message="El campo no puede estar vacio")
+	@Min(value = 18, message="No puede ser menor a 18 años")
+	private Integer edad;
 	
-	@Column(name="carrera")
-	@NotEmpty(message="No puede estar vacio")
-	private String carrera;
+	@Column(name="estado")
+	private Boolean estado;
 	
 	public Estudiante() {
 		
 	}
-
-	public Integer getCodigo() {
-		return codigo;
+	
+	public Integer getCodigoEstudiante() {
+		return codigoEstudiante;
 	}
-
-	public void setCodigo(Integer codigo) {
-		this.codigo = codigo;
+	
+	public void setCodigoEstudiante(Integer codigoEstudiante) {
+		this.codigoEstudiante = codigoEstudiante;
 	}
-
+	
 	public String getNombre() {
 		return nombre;
 	}
@@ -63,20 +71,26 @@ public class Estudiante {
 		this.apellido = apellido;
 	}
 
-	public String getCarne() {
-		return carne;
+	public Integer getEdad() {
+		return edad;
 	}
 
-	public void setCarne(String carne) {
-		this.carne = carne;
+	public void setEdad(Integer edad) {
+		this.edad = edad;
 	}
 
-	public String getCarrera() {
-		return carrera;
+	public Boolean getEstado() {
+		return estado;
 	}
 
-	public void setCarrera(String carrera) {
-		this.carrera = carrera;
+	public void setEstado(Boolean estado) {
+		this.estado = estado;
+	}
+
+	public String getEstadoDelegate() {
+		if(this.estado == null) return "";
+		
+		return estado == true ? "Activo" : "Inactivo";
 	}
 	
 }
